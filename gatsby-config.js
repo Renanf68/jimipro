@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Jimi Pro`,
     description: `Web site profissional de Francisco Wendel de Oliveira.`,
-    author: `@gatsbyjs`,
+    author: `@renan_costa_m`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
