@@ -1,22 +1,28 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useEffect, useState } from "react";
+import Seo from '../components/seo'
+import Canvas from "../components/Canvas";
+import Header from "../components/Header";
+import { getCorrectDimension } from "../utils/utils.js";
+import "../styles/styles.css";
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
-
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
+const Index = () => {
+  const [dim, setDim] = useState({});
+  async function getDimentions() {
+    let wid = await getCorrectDimension("width");
+    let hei = await getCorrectDimension("height");
+    return setDim({ wid, hei });
+  }
+  useEffect(() => {
+    getDimentions();
+    window.addEventListener("resize", getDimentions);
+    return window.removeEventListener("resize", () => {});
+  }, []);
+  return (
+    <div>
+      <Seo />
+      <Canvas dim={dim} />
+      <Header />
     </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
-
-export default IndexPage
+  );
+};
+export default Index;
